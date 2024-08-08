@@ -14,6 +14,7 @@
 #include <cstdio>
 #include <functional>
 #include <unistd.h>
+#include <thread>
 
 namespace {
     int syslogLevel(loggi::level level) {
@@ -47,15 +48,13 @@ namespace {
         }
     }
 
-    using logfunc = std::function<void(const loggi::impl::Opaque &opaque, loggi::level lvl,
+    using logfunc = std::function<void(loggi::sloc sloc, loggi::level lvl,
                                        const std::string &str)>;
 
     logfunc createStreamLogger(FILE *stream) {
-        return [stream](const loggi::impl::Opaque &opaque, loggi::level lvl, const std::string &str) -> void {
-            const auto &sloc_opt = opaque.sloc();
+        return [stream](loggi::sloc sloc, loggi::level lvl, const std::string &str) -> void {
             std::stringstream ss;
-            if (sloc_opt) {
-                const auto &sloc = *sloc_opt;
+            if (!sloc_empty(sloc)) {
                 ss << "[" << std::filesystem::path(sloc.file_name()).filename().generic_string() << ":" << sloc.line()
                         << ":" << sloc.column() << "] ";
             }
@@ -65,17 +64,16 @@ namespace {
     }
 
     logfunc createJournalLogger() {
-        return [](const loggi::impl::Opaque &opaque, loggi::level lvl, const std::string &str) -> void {
-            const auto &sloc_opt = opaque.sloc();
-
+        return [](loggi::sloc sloc, loggi::level lvl, const std::string &str) -> void {
             std::vector<std::string> entries;
 
             entries.push_back(slog_fmt_ns::format("MESSAGE={}", str));
             entries.push_back(slog_fmt_ns::format("PRIORITY={}", syslogLevel(lvl)));
-            if (opaque.tid()) {
+            // thread ID
+            {
                 std::stringstream ss;
                 ss << "TID=";
-                ss << *opaque.tid();
+                ss << std::this_thread::get_id();
                 entries.push_back(ss.str());
             }
 
@@ -87,11 +85,11 @@ namespace {
             }
 
             int err;
-            if (opaque.sloc()) {
+            if (!loggi::sloc_empty(sloc)) {
                 err = sd_journal_sendv_with_location(
-                    slog_fmt_ns::format("CODE_FILE={}", sloc_opt->file_name()).data(),
-                    slog_fmt_ns::format("CODE_LINE={}", sloc_opt->line()).data(),
-                    sloc_opt->function_name(), iov, iovcnt);
+                    slog_fmt_ns::format("CODE_FILE={}", sloc.file_name()).data(),
+                    slog_fmt_ns::format("CODE_LINE={}", sloc.line()).data(),
+                    sloc.function_name(), iov, iovcnt);
             } else {
                 err = sd_journal_sendv(iov, iovcnt);
             }
@@ -104,7 +102,7 @@ namespace {
     }
 
     logfunc createNullLogger() {
-        return [](const loggi::impl::Opaque &opaque, loggi::level lvl, const std::string &str) -> void {
+        return [](loggi::sloc sloc, loggi::level lvl, const std::string &str) -> void {
         };
     }
 
@@ -132,8 +130,8 @@ namespace {
 }
 
 namespace loggi::impl {
-    void log(const Opaque &opaque, level lvl, const std::string &str) {
+    void log(loggi::sloc sloc, level lvl, const std::string &str) {
         static logfunc instance = create();
-        instance(opaque, lvl, str);
+        instance(sloc, lvl, str);
     }
 }
