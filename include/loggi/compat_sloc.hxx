@@ -2,8 +2,8 @@
 // Created by maggu2810 on 8/7/24.
 //
 
-#ifndef LOGGI_SLOC_HXX
-#define LOGGI_SLOC_HXX
+#ifndef LOGGI_COMPAT_SLOC_HXX
+#define LOGGI_COMPAT_SLOC_HXX
 
 #define SLOC_IMPL_SLOC_ENABLED 1
 
@@ -81,4 +81,4 @@ namespace loggi {
     }
 }
 
-#endif
+#endif //LOGGI_COMPAT_SLOC_HXX

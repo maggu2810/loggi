@@ -8,11 +8,26 @@ project(loggi LANGUAGES CXX VERSION 0.0.1)
 add_library(loggi
         include/loggi/level.hxx
         include/loggi/loggi.hxx
-        include/loggi/loggi_compat_fmt.hxx
-        include/loggi/loggi_compat_sloc.hxx
-        include/loggi/loggi_compat_unreachable.hxx
-        include/loggi/loggi_impl.hxx
-        src/loggi_impl.cxx
+
+        include/loggi/compat_fmt.hxx
+        include/loggi/compat_sloc.hxx
+        include/loggi/compat_unreachable.hxx
+
+        include/loggi/backend.hxx
+
+        include/loggi/backend_hdrgen.hxx
+
+        include/loggi/backend_sd.hxx
+        src/backend_sd.cxx
+
+        include/loggi/backend_stderr.hxx
+        include/loggi/backend_stdout.hxx
+        src/backend_ostream.hxx
+        src/backend_stderr.cxx
+        src/backend_stdout.cxx
+
+        include/loggi/backend_dynamic.hxx
+        src/backend_dynamic.cxx
 )
 
 set_target_properties(loggi PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
@@ -25,7 +40,7 @@ target_include_directories(loggi PUBLIC
 
 set(COMPILE_FEATURE cxx_std_23)
 target_compile_features(loggi PUBLIC ${COMPILE_FEATURE})
-target_link_libraries(loggi PRIVATE systemd)
+target_link_libraries(loggi PUBLIC systemd)
 if (COMPILE_FEATURE STREQUAL cxx_std_23)
     target_compile_definitions(loggi PUBLIC SLOG_IMPL_STD_FORMAT=1 SLOG_IMPL_STD_SLOC=1 SLOC_IMPL_STD_UNREACHABLE=1)
 elseif (COMPILE_FEATURE STREQUAL cxx_std_20)
