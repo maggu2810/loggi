@@ -6,8 +6,10 @@
 #define LOGGI_LOGGI_HXX
 
 #ifndef LOGGI_BACKEND
-#error LOGGI_BACKEND must be set
+#define LOGGI_BACKEND 0
 #endif
+
+#ifdef LOGGI_BACKEND
 #define LOGGI_BACKEND_NS_AS_DFL 1
 #if LOGGI_BACKEND == 0
 #include "backend_dynamic.hxx"
@@ -21,6 +23,7 @@
 #error LOGGI_BACKEND not set
 #endif
 #undef LOGGI_BACKEND_NS_AS_DFL
+#endif //LOGGI_BACKEND
 
 #include "backend.hxx"
 

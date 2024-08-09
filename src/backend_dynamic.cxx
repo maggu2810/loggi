@@ -13,7 +13,6 @@
 #include <unistd.h>
 #include <functional>
 
-
 namespace {
     bool directly_invoked_by_systemd() {
         const char *systemd_exec_pid = std::getenv("SYSTEMD_EXEC_PID");
@@ -60,12 +59,4 @@ namespace loggi::backend::dynamic {
         static logfunc instance = create();
         instance(sloc, lvl, str);
     }
-}
-
-
-
-namespace loggi::backend::dynamic {
-
-
-
 }
