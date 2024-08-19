@@ -28,6 +28,12 @@ add_library(loggi
 
         include/loggi/backend_dynamic.hxx
         src/backend_dynamic.cxx
+
+        include/loggi/format_backend.hxx
+        include/loggi/format_loggi.hxx
+
+        include/loggi/printf_backend.hxx
+        include/loggi/printf_loggi.hxx
 )
 
 set_target_properties(loggi PROPERTIES VERSION ${PROJECT_VERSION} SOVERSION ${PROJECT_VERSION_MAJOR})
