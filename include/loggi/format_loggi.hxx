@@ -11,6 +11,16 @@
 #include "compat_sloc.hxx"
 #include "level.hxx"
 
+#define LOGGI_FORMAT_LOG(...) ::loggi::format::log(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_EMERG(...) ::loggi::format::emerg(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_ALERT(...) ::loggi::format::alert(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_CRIT(...) ::loggi::format::crit(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_ERR(...) ::loggi::format::err(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_WARN(...) ::loggi::format::warn(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_NOTICE(...) ::loggi::format::notice(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_INFO(...) ::loggi::format::info(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_FORMAT_DEBUG(...) ::loggi::format::debug(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+
 namespace loggi::format {
     template<class... Args>
     constexpr void log(::loggi::sloc sloc, level lvl, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {

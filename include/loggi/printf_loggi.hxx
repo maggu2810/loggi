@@ -13,6 +13,16 @@
 
 #include <cstdarg>
 
+#define LOGGI_PRINTF_LOG(...) ::loggi::printf::log(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_EMERG(...) ::loggi::printf::emerg(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_ALERT(...) ::loggi::printf::alert(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_CRIT(...) ::loggi::printf::crit(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_ERR(...) ::loggi::printf::err(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_WARN(...) ::loggi::printf::warn(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_NOTICE(...) ::loggi::printf::notice(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_INFO(...) ::loggi::printf::info(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_PRINTF_DEBUG(...) ::loggi::printf::debug(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+
 #define LOGGI_PRINTF_CALL_BACKEND_LOG(level) \
     do { \
         va_list ap;\
