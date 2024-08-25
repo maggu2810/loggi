@@ -2,8 +2,8 @@
 // Created by maggu2810 on 8/19/24.
 //
 
-#ifndef LOGGI_PRINTF_BACKEND_HXX
-#define LOGGI_PRINTF_BACKEND_HXX
+#ifndef LOGGI_PRINTF_IMPL_HXX
+#define LOGGI_PRINTF_IMPL_HXX
 
 #include "backend.hxx"
 #include "compat_sloc.hxx"
@@ -13,7 +13,7 @@
 #include <cstdio>
 #include <memory>
 
-namespace loggi::printf::backend {
+namespace loggi::printf::impl {
     constexpr void log(loggi::sloc sloc, level lvl, const char *fmt, va_list ap) {
         char* buffer;
         if (const int rv = vasprintf(&buffer, fmt, ap); rv != -1) {
@@ -25,4 +25,4 @@ namespace loggi::printf::backend {
     }
 }
 
-#endif //LOGGI_PRINTF_BACKEND_HXX
+#endif //LOGGI_PRINTF_IMPL_HXX

@@ -31,10 +31,10 @@
 #endif
 
 #if LOGGI_FRONTEND == 0
-#include "format_loggi.hxx"
-LOGGI_FRONTEND_SET_DFL(format)
+#include "loggi_format.hxx"
+LOGGI_FRONTEND_SET_DFL_TYPE(format)
 #elif LOGGI_FRONTEND == 1
-#include "printf_loggi.hxx"
+#include "loggi_printf.hxx"
 LOGGI_FRONTEND_SET_DFL_TYPE(printf)
 #endif
 

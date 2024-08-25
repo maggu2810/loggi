@@ -5,7 +5,7 @@
 #ifndef LOGGI_PRINTF_LOGGI_HXX
 #define LOGGI_PRINTF_LOGGI_HXX
 
-#include "printf_backend.hxx"
+#include "printf_impl.hxx"
 
 #include "compat_fmt.hxx"
 #include "compat_sloc.hxx"
@@ -28,7 +28,7 @@
         va_list ap;\
         va_start(ap, fmt);\
         ::loggi::printf::vaend_on_destruction vaend(ap);\
-        ::loggi::printf::backend::log(sloc, level, fmt, ap);\
+        ::loggi::printf::impl::log(sloc, level, fmt, ap);\
     } while(0)
 
 namespace loggi::printf {
