@@ -5,8 +5,8 @@
 #ifndef LOGGI_BACKEND_STDOUT_HXX
 #define LOGGI_BACKEND_STDOUT_HXX
 
+#undef LOGGI_BACKEND_NS
 #define LOGGI_BACKEND_NS loggi::backend::stdout
 #include "backend_hdrgen.hxx"
-#undef LOGGI_BACKEND_NS
 
 #endif //LOGGI_BACKEND_STDOUT_HXX

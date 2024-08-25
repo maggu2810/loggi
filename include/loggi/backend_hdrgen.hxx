@@ -16,9 +16,4 @@
 namespace LOGGI_BACKEND_NS {
     void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str);
 }
-#ifdef LOGGI_BACKEND_NS_AS_DFL
-//namespace loggi::backend { inline void log(loggi::sloc sloc, level lvl, const std::string &str) { LOGGI_BACKEND_NS::log(sloc, lvl ,str); } }
-#define LOGGI_BACKEND_HXX
-namespace loggi::backend { using LOGGI_BACKEND_NS::log; }
-#endif
 #endif
