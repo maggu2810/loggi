@@ -10,7 +10,7 @@
 #if SLOG_IMPL_STD_SLOC
 #include <source_location>
 
-#define LOGGI_SLOC_CONSTR loggi::sloc{}
+#define LOGGI_SLOC_CONSTR ::loggi::sloc{}
 
 #if SLOC_IMPL_SLOC_ENABLED
 #define LOGGI_IMPL_SLOC_C std::source_location::current()
@@ -34,7 +34,7 @@ namespace loggi {
 #include <string>
 
 #if SLOC_IMPL_SLOC_ENABLED
-#define LOGGI_SLOC_CONSTR loggi::sloc(__LINE__ , 0u, __FILE__, __PRETTY_FUNCTION__)
+#define LOGGI_SLOC_CONSTR ::loggi::sloc(__LINE__ , 0u, __FILE__, __PRETTY_FUNCTION__)
 #else
 #define LOGGI_SLOC_CONSTR { 0u, 0u, "", ""}
 #endif
@@ -75,7 +75,7 @@ namespace loggi {
 #include <cstring>
 
 namespace loggi {
-    inline bool sloc_empty(loggi::sloc sloc) {
+    inline bool sloc_empty(::loggi::sloc sloc) {
         return sloc.line() == 0 && sloc.column() == 0 && strlen(sloc.file_name()) == 0 && strlen(
                    sloc.function_name()) == 0;
     }

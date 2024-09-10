@@ -13,23 +13,23 @@ namespace loggi {
         emergency, alert, critical, error, warning, notice, info, debug
     };
 
-    inline int syslogLevel(loggi::level level) {
+    inline int syslogLevel(::loggi::level level) {
         switch (level) {
-            case loggi::level::emergency:
+            case ::loggi::level::emergency:
                 return LOG_EMERG;
-            case loggi::level::alert:
+            case ::loggi::level::alert:
                 return LOG_ALERT;
-            case loggi::level::critical:
+            case ::loggi::level::critical:
                 return LOG_CRIT;
-            case loggi::level::error:
+            case ::loggi::level::error:
                 return LOG_ERR;
-            case loggi::level::warning:
+            case ::loggi::level::warning:
                 return LOG_WARNING;
-            case loggi::level::notice:
+            case ::loggi::level::notice:
                 return LOG_NOTICE;
-            case loggi::level::info:
+            case ::loggi::level::info:
                 return LOG_INFO;
-            case loggi::level::debug:
+            case ::loggi::level::debug:
                 return LOG_DEBUG;
         }
         LOGGI_UNREACHABLE();

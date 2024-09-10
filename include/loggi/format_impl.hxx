@@ -13,9 +13,9 @@
 
 namespace loggi::format::impl {
     template<class... Args>
-    constexpr void log(loggi::sloc sloc, level lvl, slog_fmt_ns::format_string<Args...> fmt,
+    constexpr void log(::loggi::sloc sloc, ::loggi::level lvl, ::loggi::fmt::format_string<Args...> fmt,
                        Args &&... args) {
-        ::loggi::backend::log(sloc, lvl, slog_fmt_ns::format(fmt, std::forward<Args>(args)...));
+        ::loggi::backend::log(sloc, lvl, ::loggi::fmt::format(fmt, std::forward<Args>(args)...));
     }
 }
 

@@ -13,7 +13,7 @@
 #include <filesystem>
 
 namespace loggi::backend::ostream {
-    inline void log(std::ostream& os, loggi::sloc sloc, level lvl, const std::string &str) {
+    inline void log(std::ostream& os, ::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
         if (!sloc_empty(sloc)) {
             os << "[" << std::filesystem::path(sloc.file_name()).filename().generic_string() << ":" << sloc.line()
                     << ":" << sloc.column() << "] ";

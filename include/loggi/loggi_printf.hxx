@@ -27,24 +27,13 @@
     do { \
         va_list ap;\
         va_start(ap, fmt);\
-        ::loggi::printf::vaend_on_destruction vaend(ap);\
+        ::loggi::printf::impl::vaend_on_destruction vaend(ap);\
         ::loggi::printf::impl::log(sloc, level, fmt, ap);\
     } while(0)
 
 namespace loggi::printf {
-    class vaend_on_destruction {
-    public:
-        explicit vaend_on_destruction(va_list &ap) : m_ap(ap) {
-        }
-
-        ~vaend_on_destruction() { va_end(m_ap); }
-
-    private:
-        va_list &m_ap;
-    };
-
     __attribute__((format(printf, 3, 4)))
-    constexpr void log(::loggi::sloc sloc, level lvl, const char *fmt, ...) {
+    constexpr void log(::loggi::sloc sloc, ::loggi::level lvl, const char *fmt, ...) {
         LOGGI_PRINTF_CALL_BACKEND_LOG(lvl);
     }
 

@@ -23,11 +23,11 @@ namespace {
         }
     }
 
-    using logfunc = std::function<void(loggi::sloc sloc, loggi::level lvl,
+    using logfunc = std::function<void(::loggi::sloc sloc, ::loggi::level lvl,
                                        const std::string &str)>;
 
     logfunc createNullLogger() {
-        return [](loggi::sloc sloc, loggi::level lvl, const std::string &str) -> void {
+        return [](::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) -> void {
         };
     }
 
@@ -49,13 +49,13 @@ namespace {
         } else if (log_target == "null") {
             return createNullLogger();
         } else {
-            throw std::runtime_error(slog_fmt_ns::format("unknown log target: {}", log_target));
+            throw std::runtime_error(::loggi::fmt::format("unknown log target: {}", log_target));
         }
     }
 }
 
 namespace loggi::backend::dynamic {
-    void log(loggi::sloc sloc, level lvl, const std::string &str) {
+    void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
         static logfunc instance = create();
         instance(sloc, lvl, str);
     }

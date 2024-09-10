@@ -17,11 +17,11 @@
 #include <systemd/sd-journal.h>
 
 namespace loggi::backend::sd {
-    void log(loggi::sloc sloc, level lvl, const std::string &str) {
+    void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
         std::vector<std::string> entries;
 
-        entries.push_back(slog_fmt_ns::format("MESSAGE={}", str));
-        entries.push_back(slog_fmt_ns::format("PRIORITY={}", syslogLevel(lvl)));
+        entries.push_back(::loggi::fmt::format("MESSAGE={}", str));
+        entries.push_back(::loggi::fmt::format("PRIORITY={}", syslogLevel(lvl)));
         // thread ID
         {
             std::stringstream ss;
@@ -43,12 +43,12 @@ namespace loggi::backend::sd {
         };
 
         int err;
-        if (!loggi::sloc_empty(sloc)) {
-            entries.push_back(slog_fmt_ns::format("CODE_COLUMN={}", sloc.column()));
+        if (!::loggi::sloc_empty(sloc)) {
+            entries.push_back(::loggi::fmt::format("CODE_COLUMN={}", sloc.column()));
             err = call_sd_journal(entries, [&](const struct iovec *iov, int n) {
                 return sd_journal_sendv_with_location(
-                    slog_fmt_ns::format("CODE_FILE={}", sloc.file_name()).data(),
-                    slog_fmt_ns::format("CODE_LINE={}", sloc.line()).data(),
+                    ::loggi::fmt::format("CODE_FILE={}", sloc.file_name()).data(),
+                    ::loggi::fmt::format("CODE_LINE={}", sloc.line()).data(),
                     sloc.function_name(), iov, n);
             });
         } else {

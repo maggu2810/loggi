@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace loggi::backend::stderr {
-    void log(loggi::sloc sloc, level lvl, const std::string &str) {
-        loggi::backend::ostream::log(std::cerr, sloc, lvl, str);
+    void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
+        ::loggi::backend::ostream::log(std::cerr, sloc, lvl, str);
     }
 }

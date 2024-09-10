@@ -23,47 +23,47 @@
 
 namespace loggi::format {
     template<class... Args>
-    constexpr void log(::loggi::sloc sloc, level lvl, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void log(::loggi::sloc sloc, ::loggi::level lvl, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, lvl, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void emerg(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void emerg(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::emergency, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void alert(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void alert(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::alert, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void crit(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void crit(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::critical, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void err(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void err(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::error, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void warn(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void warn(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::warning, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void notice(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void notice(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::notice, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void info(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void info(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::info, fmt, std::forward<Args>(args)...);
     }
 
     template<class... Args>
-    constexpr void debug(::loggi::sloc sloc, slog_fmt_ns::format_string<Args...> fmt, Args &&... args) {
+    constexpr void debug(::loggi::sloc sloc, ::loggi::fmt::format_string<Args...> fmt, Args &&... args) {
         ::loggi::format::impl::log(sloc, level::debug, fmt, std::forward<Args>(args)...);
     }
 }

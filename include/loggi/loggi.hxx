@@ -15,17 +15,17 @@
 #endif
 
 #if LOGGI_FRONTEND_SHORTCUT
-#define LOGGI_LOG(...) loggi::log(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_EMERG(...) loggi::emerg(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_ALERT(...) loggi::alert(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_CRIT(...) loggi::crit(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_ERR(...) loggi::err(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_WARN(...) loggi::warn(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_NOTICE(...) loggi::notice(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_INFO(...) loggi::info(LOGGI_SLOC_CONSTR, __VA_ARGS__)
-#define LOGGI_DEBUG(...) loggi::debug(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_LOG(...) ::loggi::log(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_EMERG(...) ::loggi::emerg(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_ALERT(...) ::loggi::alert(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_CRIT(...) ::loggi::crit(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_ERR(...) ::loggi::err(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_WARN(...) ::loggi::warn(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_NOTICE(...) ::loggi::notice(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_INFO(...) ::loggi::info(LOGGI_SLOC_CONSTR, __VA_ARGS__)
+#define LOGGI_DEBUG(...) ::loggi::debug(LOGGI_SLOC_CONSTR, __VA_ARGS__)
 
-#define LOGGI_FRONTEND_SET_DFL_TYPE(type) namespace loggi { using loggi::type::log; using loggi::type::emerg; using loggi::type::alert; using loggi::type::crit; using loggi::type::err; using loggi::type::warn; using loggi::type::notice; using loggi::type::info; using loggi::type::debug;  }
+#define LOGGI_FRONTEND_SET_DFL_TYPE(type) namespace loggi { using ::loggi::type::log; using ::loggi::type::emerg; using ::loggi::type::alert; using ::loggi::type::crit; using ::loggi::type::err; using ::loggi::type::warn; using ::loggi::type::notice; using ::loggi::type::info; using ::loggi::type::debug;  }
 #else
 #define LOGGI_FRONTEND_SET_DFL_TYPE(type)
 #endif
