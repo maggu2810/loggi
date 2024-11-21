@@ -6,5 +6,5 @@ add_executable(simple
         #src/test_loggi_backend_stderr.cxx
         #src/test_loggi_backend_stdout.cxx
 )
-#target_compile_definitions(simple PRIVATE LOGGI_BACKEND=3)
+#target_compile_definitions(simple PRIVATE LOGGI_BACKEND_DFL=3)
 target_link_libraries(simple PRIVATE loggi)

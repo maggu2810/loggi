@@ -2,13 +2,13 @@
 // Created by maggu2810 on 8/9/24.
 //
 
-#include <loggi/backend_dynamic.hxx>
+#include <loggi/backend/backend_dynamic.hxx>
 
-#include <loggi/backend_sd.hxx>
-#include <loggi/backend_stderr.hxx>
-#include <loggi/backend_stdout.hxx>
+#include <loggi/backend/backend_sd.hxx>
+#include <loggi/backend/backend_stderr.hxx>
+#include <loggi/backend/backend_stdout.hxx>
 
-#include <loggi/compat_fmt.hxx>
+#include <loggi/impl/fmt.hxx>
 
 #include <unistd.h>
 #include <functional>
@@ -23,11 +23,11 @@ namespace {
         }
     }
 
-    using logfunc = std::function<void(::loggi::sloc sloc, ::loggi::level lvl,
+    using logfunc = std::function<void(::loggi::context ctx, ::loggi::level lvl,
                                        const std::string &str)>;
 
     logfunc createNullLogger() {
-        return [](::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) -> void {
+        return [](::loggi::context ctx, ::loggi::level lvl, const std::string &str) -> void {
         };
     }
 
@@ -49,14 +49,14 @@ namespace {
         } else if (log_target == "null") {
             return createNullLogger();
         } else {
-            throw std::runtime_error(::loggi::fmt::format("unknown log target: {}", log_target));
+            throw std::runtime_error(::loggi_impl::fmt::format("unknown log target: {}", log_target));
         }
     }
 }
 
 namespace loggi::backend::dynamic {
-    void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
+    void log(const ::loggi::context& ctx, ::loggi::level lvl, const std::string &str) {
         static logfunc instance = create();
-        instance(sloc, lvl, str);
+        instance(ctx, lvl, str);
     }
 }

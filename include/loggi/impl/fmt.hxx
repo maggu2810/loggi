@@ -2,21 +2,23 @@
 // Created by maggu2810 on 8/7/24.
 //
 
-#ifndef LOGGI_COMPAT_FMT_HXX
-#define LOGGI_COMPAT_FMT_HXX
+#ifndef LOGGI_IMPL_FMT_HXX
+#define LOGGI_IMPL_FMT_HXX
 
-#if SLOG_IMPL_STD_FORMAT
+#if LOGGI_IMPL_STD_FORMAT
 #include <format>
-namespace loggi::fmt {
+
+namespace loggi_impl::fmt {
     using ::std::format_string;
     using ::std::format;
 }
 #else
 #include <fmt/format.h>
-namespace loggi::fmt {
+
+namespace loggi_impl::fmt {
     using ::fmt::format_string;
     using ::fmt::format;
 }
 #endif
 
-#endif //LOGGI_COMPAT_FMT_HXX
+#endif //LOGGI_IMPL_FMT_HXX

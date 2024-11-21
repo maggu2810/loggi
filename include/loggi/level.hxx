@@ -6,7 +6,7 @@
 #define LOGGI_LEVEL_HXX
 
 #include <sys/syslog.h>
-#include <loggi/compat_unreachable.hxx>
+#include <loggi/impl/unreachable.hxx>
 
 namespace loggi {
     enum class level {
@@ -32,7 +32,7 @@ namespace loggi {
             case ::loggi::level::debug:
                 return LOG_DEBUG;
         }
-        LOGGI_UNREACHABLE();
+        ::loggi_impl::unreachable();
     }
 }
 

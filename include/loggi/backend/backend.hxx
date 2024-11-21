@@ -5,20 +5,11 @@
 #ifndef LOGGI_BACKEND_HXX
 #define LOGGI_BACKEND_HXX
 
-#include "compat_sloc.hxx"
-#include "level.hxx"
+#include <loggi/context.hxx>
+#include <loggi/level.hxx>
 #include <string>
 
-#ifndef LOGGI_BACKEND
-#define LOGGI_BACKEND 0
-#endif
-
-#ifndef LOGGI_BACKEND_NS_AS_DFL
-#define LOGGI_BACKEND_NS_AS_DFL 1
-#endif //LOGGI_BACKEND_NS_AS_DFL
-
-#if LOGGI_BACKEND_NS_AS_DFL
-
+#ifdef LOGGI_BACKEND
 #if LOGGI_BACKEND == 0
 #include "backend_dynamic.hxx"
 #elif LOGGI_BACKEND == 1
@@ -28,13 +19,13 @@
 #elif LOGGI_BACKEND == 3
 #include "backend_sd.hxx"
 #else
-#error LOGGI_BACKEND not set
+#error LOGGI_BACKEND value not known
 #endif
 
-#if 1
+#if 0
 namespace loggi::backend {
-    inline void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
-        LOGGI_BACKEND_NS::log(sloc, lvl, str);
+    inline void log(const ::loggi::context& ctx, ::loggi::level lvl, const std::string &str) {
+        LOGGI_BACKEND_NS::log(ctx, lvl, str);
     }
 }
 #else
@@ -45,7 +36,7 @@ namespace loggi::backend {
 
 #else
 namespace loggi::backend {
-    void log(::loggi::sloc sloc, ::loggi::level lvl, const std::string &str);
+    void log(const ::loggi::context &ctx, ::loggi::level lvl, const std::string &str);
 }
 #endif
 

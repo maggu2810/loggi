@@ -9,30 +9,32 @@ add_library(loggi
         include/loggi/level.hxx
         include/loggi/loggi.hxx
 
-        include/loggi/compat_fmt.hxx
-        include/loggi/compat_sloc.hxx
-        include/loggi/compat_unreachable.hxx
+        include/loggi/context.hxx
+        include/loggi/impl/cod.hxx
+        include/loggi/impl/fmt.hxx
+        include/loggi/impl/sloc.hxx
+        include/loggi/impl/unreachable.hxx
 
-        include/loggi/backend.hxx
+        include/loggi/backend/backend.hxx
 
-        include/loggi/backend_hdrgen.hxx
+        include/loggi/backend/backend_hdrgen.hxx
 
-        include/loggi/backend_sd.hxx
+        include/loggi/backend/backend_sd.hxx
         src/backend_sd.cxx
 
-        include/loggi/backend_stderr.hxx
-        include/loggi/backend_stdout.hxx
+        include/loggi/backend/backend_stderr.hxx
+        include/loggi/backend/backend_stdout.hxx
         src/backend_ostream.hxx
         src/backend_stderr.cxx
         src/backend_stdout.cxx
 
-        include/loggi/backend_dynamic.hxx
+        include/loggi/backend/backend_dynamic.hxx
         src/backend_dynamic.cxx
 
-        include/loggi/format_impl.hxx
+        include/loggi/impl/format.hxx
         include/loggi/loggi_format.hxx
 
-        include/loggi/printf_impl.hxx
+        include/loggi/impl/printf.hxx
         include/loggi/loggi_printf.hxx
 )
 
@@ -48,11 +50,11 @@ set(COMPILE_FEATURE cxx_std_23)
 target_compile_features(loggi PUBLIC ${COMPILE_FEATURE})
 target_link_libraries(loggi PUBLIC systemd)
 if (COMPILE_FEATURE STREQUAL cxx_std_23)
-    target_compile_definitions(loggi PUBLIC SLOG_IMPL_STD_FORMAT=1 SLOG_IMPL_STD_SLOC=1 SLOC_IMPL_STD_UNREACHABLE=1)
+    target_compile_definitions(loggi PUBLIC LOGGI_IMPL_STD_FORMAT=1)
 elseif (COMPILE_FEATURE STREQUAL cxx_std_20)
-    target_compile_definitions(loggi PUBLIC SLOG_IMPL_STD_FORMAT=1 SLOG_IMPL_STD_SLOC=1 SLOC_IMPL_STD_UNREACHABLE=0)
+    target_compile_definitions(loggi PUBLIC LOGGI_IMPL_STD_FORMAT=1)
 elseif (COMPILE_FEATURE STREQUAL cxx_std_17)
-    target_compile_definitions(loggi PUBLIC SLOG_IMPL_STD_FORMAT=0 SLOG_IMPL_STD_SLOC=0 SLOC_IMPL_STD_UNREACHABLE=0)
+    target_compile_definitions(loggi PUBLIC LOGGI_IMPL_STD_FORMAT=0)
     find_package(fmt REQUIRED)
     target_link_libraries(loggi PUBLIC fmt::fmt)
 endif ()

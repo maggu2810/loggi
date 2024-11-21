@@ -5,7 +5,7 @@
 #ifndef BACKEND_OSTREAM_HXX
 #define BACKEND_OSTREAM_HXX
 
-#include <loggi/compat_sloc.hxx>
+#include <loggi/impl/sloc.hxx>
 #include <loggi/level.hxx>
 
 #include <string>
@@ -13,8 +13,9 @@
 #include <filesystem>
 
 namespace loggi::backend::ostream {
-    inline void log(std::ostream& os, ::loggi::sloc sloc, ::loggi::level lvl, const std::string &str) {
-        if (!sloc_empty(sloc)) {
+    inline void log(std::ostream &os, ::loggi::context ctx, ::loggi::level lvl, const std::string &str) {
+        const auto &sloc = ctx.sloc();
+        if (!::loggi_impl::sloc_empty(sloc)) {
             os << "[" << std::filesystem::path(sloc.file_name()).filename().generic_string() << ":" << sloc.line()
                     << ":" << sloc.column() << "] ";
         }
