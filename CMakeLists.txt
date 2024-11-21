@@ -7,6 +7,7 @@ project(loggi LANGUAGES CXX VERSION 0.0.1)
 
 add_library(loggi
         include/loggi/level.hxx
+        include/loggi/log.hxx
         include/loggi/loggi.hxx
 
         include/loggi/context.hxx
